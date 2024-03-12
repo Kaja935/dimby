@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function SocietyList() {
     const [societies, setSocieties] = useState([]);
@@ -58,12 +59,12 @@ export default function SocietyList() {
                         Create Society
                     </Link>
                 </div>
-                <div className="col-12">
-                    <Card>
-                        <Card.Body>
-                            <div className="table-responsive">
-                                <table className="table table-bordered mb-0 text-center" style={{ border: 'none' }}>
-                                    <thead className='bg-dark'>
+                <div className="col-12" style={{border:'none'}}>
+                    <Card style={{backgroundColor:'transparent',border:'none'}}>
+                        <Card.Body  style={{backgroundColor:'transparent'}}>
+                            <div>
+                                <table style={{width:"100%" ,background:'transparent'}}>
+                                    <thead>
                                         <tr>
                                             <th>Company name</th>
                                             <th>Address</th>

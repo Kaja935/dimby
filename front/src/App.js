@@ -10,10 +10,10 @@ import { BrowserRouter as Router , Routes, Route, Link } from "react-router-dom"
 import EditSociety from "./components/society/edit.component";
 import SocietyList from "./components/society/list.component";
 import CreateSociety from "./components/society/create.component";
-import Index from "./components";
-import DepartmentList from "./components/department/DepartmentList";
-import CreateDepartment from "./components/department/CreateDepartment";
-import EditDepartment from "./components/department/EditDepartment";
+// import Index from "./components";
+// import DepartmentList from "./components/department/DepartmentList";
+// import CreateDepartment from "./components/department/CreateDepartment";
+// import EditDepartment from "./components/department/EditDepartment";
 
 function App() {
   return (<Router>
@@ -38,10 +38,10 @@ function App() {
             <Route path="/society/create" element={<CreateSociety />} />
             <Route path="/society/edit/:id" element={<EditSociety />} />
             <Route path="/society" element={<SocietyList />} />
-            <Route path="/department" element={<DepartmentList />} />
+            {/* <Route path="/department" element={<DepartmentList />} />
             <Route path="/department/create" element={<CreateDepartment />} />
-            <Route path="/department/edit/:id" element={<EditDepartment />} />
-            <Route exact path='/' element={<Index />} />
+            <Route path="/department/edit/:id" element={<EditDepartment />} /> */}
+            {/* <Route exact path='/' element={<Index />} /> */}
           </Routes>
         </Col>
       </Row>
