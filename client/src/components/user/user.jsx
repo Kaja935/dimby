@@ -16,9 +16,11 @@ export const User = () => {
     id_societies: ""
   });
   const [users, setUsers] = useState([]);
+  const [societies, setSocieties] = useState([]);
 
   useEffect(() => {
     fetchUsers();
+    fetchSocieties(); // Fetch societies on component mount
   }, []);
 
   const fetchUsers = async () => {
@@ -30,6 +32,15 @@ export const User = () => {
     }
   };
 
+  const fetchSocieties = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/api/societies");
+      setSocieties(response.data);
+    } catch (error) {
+      console.error("Error fetching societies:", error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({
@@ -37,7 +48,6 @@ export const User = () => {
       [name]: value
     });
   };
-
   const handleSave = async (e) => {
     e.preventDefault();
     try {
@@ -100,7 +110,7 @@ export const User = () => {
       });
     }
   };
-  
+
   const handleSubmit = isEditing ? handleSave : handleAdd;
 
   const deleteUser = async (userId) => {
@@ -193,7 +203,12 @@ export const User = () => {
               </Form.Group>
               <Form.Group controlId="formBasicSocietyId">
                 <Form.Label>Society ID</Form.Label>
-                <Form.Control type="text" placeholder="Society ID" name="id_societies" value={userData.id_societies} onChange={handleChange} required />
+                <Form.Control as="select" name="id_societies" value={userData.id_societies} onChange={handleChange} required>
+                  <option value="">Select Society</option>
+                  {societies.map((society) => (
+                    <option key={society.id} value={society.id}>{society.company_name}</option>
+                  ))}
+                </Form.Control>
               </Form.Group>
               <Form.Group controlId="formBasicDepartmentId">
                 <Form.Label>Department ID</Form.Label>
