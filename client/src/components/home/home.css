@@ -1,0 +1,24 @@
+.logo{
+    background-image: url('../../assets/logo.png');
+    background-size: 100%;
+ 
+    height: 50px;
+    width: 70px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    left: 3%;
+    position: absolute;
+}
+.sidebar div{
+    padding: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 15px;
+};
+
+
+@media screen and (max-width:1400px) {
+    .logo{
+        /* margin-left: 2vh; */
+    }
+}
