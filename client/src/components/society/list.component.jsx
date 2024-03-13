@@ -87,6 +87,7 @@ export default function SocietyList() {
                                                         <td>{row.stat}</td>
                                                         <td>
                                                             <img width="50px" src={`http://localhost:8000/storage/society/logo/${row.logo}`} alt="Society Logo" />
+
                                                         </td>
                                                         <td>
                                                             <Link to={`/society/edit/${row.id}`} className='btn btn-success me-2'>
