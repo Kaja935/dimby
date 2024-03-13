@@ -70,7 +70,7 @@ class UserController extends Controller
         $user->role = $request->input('role');
         $user->id_employees = $request->input('id_employees');
         $user->id_societies = $request->input('id_societies');
-        $user->id_departements = $request->input('id_departements');
+        $user->id_departments = $request->input('id_departments');
         $user->save();
 
         return response()->json(['message' => 'User updated successfully'], 200);
