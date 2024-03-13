@@ -54,12 +54,12 @@ export default function SocietyList() {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-12">
+                <div className="col-md-11 mr-1">
                     <Link className="btn btn-primary mb-2 float-end" to={"/society/create"}>
                         Create Society
                     </Link>
                 </div>
-                <div className="col-12" style={{border:'none'}}>
+                <div className="col-md-11" style={{border:'none'}}>
                     <Card style={{backgroundColor:'transparent',border:'none'}}>
                         <Card.Body  style={{backgroundColor:'transparent'}}>
                             <div>
@@ -87,6 +87,7 @@ export default function SocietyList() {
                                                         <td>{row.stat}</td>
                                                         <td>
                                                             <img width="50px" src={`http://localhost:8000/storage/society/logo/${row.logo}`} alt="Society Logo" />
+
                                                         </td>
                                                         <td>
                                                             <Link to={`/society/edit/${row.id}`} className='btn btn-success me-2'>
