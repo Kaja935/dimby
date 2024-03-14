@@ -10,13 +10,9 @@ import EditSociety from "../society/edit.component";
 import "./home.css"
 
 export const Home = () => {
-    const [showSidebar, setShowSidebar] = useState(true);
     const [value, setValue] = useState();
   
-    const toggleSidebar = () => {
-      setShowSidebar(!showSidebar);
-    };
-  
+
     const handleClick = (val) => {
       setValue(val);
     };
@@ -35,7 +31,7 @@ export const Home = () => {
     return (
       <div className="home">
         <Navbar bg="transparent" variant="light" className="fixed-top text-dark">
-          <Button variant="outline-light" style={{ border: "none" }} onClick={toggleSidebar}>
+          <Button variant="outline-light" style={{ border: "none" }} >
             <FontAwesomeIcon icon={faBars} style={{ color: "black" }} />
           </Button>
           <Container>
@@ -44,7 +40,7 @@ export const Home = () => {
         </Navbar>
         <Container fluid className="mt-5" style={{ marginTop: "250px" }}>
           <Row>
-            {showSidebar && (
+
               <Col
                 xs={2}
                 className="sidebar"
@@ -69,8 +65,8 @@ export const Home = () => {
                   </Button>
                 </div>
               </Col>
-            )}
-            <Col xs={showSidebar ? 10 : 12}>
+
+            <Col>
               <div className=" mt-5">{renderContent()}</div>
             </Col>
           </Row>
