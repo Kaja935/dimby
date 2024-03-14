@@ -20,7 +20,7 @@ export const User = () => {
 
   useEffect(() => {
     fetchUsers();
-    fetchSocieties(); // Fetch societies on component mount
+    fetchSocieties(); 
   }, []);
 
   const fetchUsers = async () => {
@@ -51,7 +51,7 @@ export const User = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      console.log("Saving user data:", userData); // Log userData before saving
+      console.log("Saving user data:", userData);
       await axios.put(`http://localhost:8000/api/users/${userData.id}`, userData);
       Swal.fire({
         icon: 'success',
@@ -83,7 +83,7 @@ export const User = () => {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      console.log("Adding user data:", userData); // Log userData before adding
+      console.log("Adding user data:", userData);
       await axios.post("http://localhost:8000/api/users", userData);
       Swal.fire({
         icon: 'success',
@@ -114,27 +114,41 @@ export const User = () => {
   const handleSubmit = isEditing ? handleSave : handleAdd;
 
   const deleteUser = async (userId) => {
-    try {
-      await axios.delete(`http://localhost:8000/api/users/${userId}`);
-      // Fetch updated list of users
-      fetchUsers();
-      // Show success message
-      Swal.fire({
-        icon: 'success',
-        title: 'User deleted successfully',
-        showConfirmButton: false,
-        timer: 1500
-      });
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      // Show error message
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to delete user. Please try again later.'
-      });
+    const isConfirmed = await Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'You are about to delete this user. This action cannot be undone.',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    });
+  
+    if (isConfirmed.isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:8000/api/users/${userId}`);
+        // Fetch updated list of users
+        fetchUsers();
+        // Show success message
+        Swal.fire({
+          icon: 'success',
+          title: 'User deleted successfully',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        // Show error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to delete user. Please try again later.'
+        });
+      }
     }
   };
+  
 
   const handleEdit = (userId) => {
     const userToEdit = users.find(user => user.id === userId);
@@ -160,10 +174,14 @@ export const User = () => {
 
   return (
     <Row>
-      <Col className="col-md-4">
-        <Card style={{background:"transparent" ,border:'none',borderRadius:'none', borderRight:"1px solid grey"}}>
-          <Card.Body>
-            <h2>Add User</h2>
+      <Col className="col-md-4" style={{ borderRight:"1px solid grey"}}>
+        <Card style={{background:"transparent" ,borderRight:'none',borderRadius:'none',border:'none'}}>
+        <Card.Body style={{ borderLeft: 'none' }}>
+          {isEditing ? (
+              <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>Modify user</Card.Header>
+          ):(
+            <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>Add user</Card.Header>
+          )}
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
@@ -219,6 +237,7 @@ export const User = () => {
                 <Button variant="primary" type="submit" className="mt-2">
                   Save
                 </Button>
+                <span>&nbsp;</span>
                 <Button variant="secondary" className="mt-2 ml-2" onClick={handleCancel}>
                   Cancel
                 </Button>
@@ -233,10 +252,10 @@ export const User = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col>
+      <Col style={{maxHeight:'80vh', overflowY:"auto"}}>
         <Card className="bg-transparent user-card" style={{border:'none'}}>
           <Card.Body>
-            <h2>Users</h2>
+          <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>Liste des utilisateurs</Card.Header>
             <table>
               <thead>
                 <tr>
@@ -252,7 +271,7 @@ export const User = () => {
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.role}</td>
-                    <td className="col-md-2" style={{textAlign:'center'}}>
+                    <td className="col-md-2" style={{textAlign:'center',borderTop:'1px solid grey'}}>
                       <button className="btn btn-success" onClick={() => handleEdit(user.id)}>Edit</button>
                       <span>&nbsp;</span>
                       <button className="btn btn-danger" onClick={() => deleteUser(user.id)}>Remove</button>

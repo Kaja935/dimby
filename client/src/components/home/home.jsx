@@ -3,7 +3,7 @@ import { Navbar, Nav, Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSignOutAlt ,faUser, faBuilding, faMobileButton, faMoneyBill} from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SocietyList from "../society/list.component";
+import { Society } from "../society/society";
 import { User } from "../user/user";
 import CreateSociety from "../society/create.component";
 import EditSociety from "../society/edit.component";
@@ -20,7 +20,7 @@ export const Home = () => {
     const renderContent = () => {
       switch (value) {
         case 1:
-          return <SocietyList />;
+          return <Society />;
         case 2:
           return <User />;
         default:

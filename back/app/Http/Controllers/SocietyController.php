@@ -76,44 +76,48 @@ class SocietyController extends Controller
     public function update(Request $request, Society $society)
     {
         $request->validate([
-            'company_name'=>'required',
-            'address'=>'required',
-            'company_email'=>'required',
-            'nif'=>'required',
-            'stat'=>'required',
-            'logo'=>'nullable'
+            'company_name' => 'required',
+            'address' => 'required',
+            'company_email' => 'required',
+            'nif' => 'required',
+            'stat' => 'required',
+            'logo' => 'nullable|image'
         ]);
-        try{
-
-            $society->fill($request->post())->update();
-
-            if($request->hasFile('logo')){
-
-                // remove old image
-                if($society->logo){
-                    $exists = Storage::disk('public')->exists("society/logo/{$society->logo}");
-                    if($exists){
-                        Storage::disk('public')->delete("society/logo/{$society->logo}");
-                    }
+    
+        try {
+            $society->company_name = $request->company_name;
+            $society->address = $request->address;
+            $society->company_email = $request->company_email;
+            $society->nif = $request->nif;
+            $society->stat = $request->stat;
+    
+            if ($request->hasFile('logo')) {
+                // Remove old image if it exists
+                if ($society->logo) {
+                    Storage::disk('public')->delete("society/logo/{$society->logo}");
                 }
-
-                $logoName = Str::random().'.'.$request->logo->getClientOriginalExtension();
-                Storage::disk('public')->putFileAs('society/logo', $request->logo,$logoName);
+    
+                // Save new image
+                $logoName = Str::random() . '.' . $request->logo->getClientOriginalExtension();
+                $request->logo->storeAs('society/logo', $logoName, 'public');
                 $society->logo = $logoName;
-                $society->save();
             }
-
+    
+            $society->save();
+    
             return response()->json([
-                'message'=>'Society Updated Successfully!!'
+                'message' => 'Society Updated Successfully!!'
             ]);
-
-        }catch(\Exception $e){
+    
+        } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json([
-                'message'=>'Something goes wrong while updating a society!!'
-            ],500);
+                'message' => 'Something went wrong while updating a society!!'
+            ], 500);
         }
     }
+    
+    
 
     /**
      * Remove the specified resource from storage.
