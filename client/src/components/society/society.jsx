@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useState ,useEffect} from "react";
 import './society.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const Society = () => {
 
@@ -119,8 +121,18 @@ export const Society = () => {
         await axios.post(`http://localhost:8000/api/societies/${isEditing}`, formData).then(({data})=>{
           Swal.fire({
             icon:"success",
-            text:data.message
+            text:data.message,
+            
           })
+          fetchSocieties()
+          setCompany_name('');
+          setAddress('');
+          setCompany_email('');
+          setNif('');
+          setStat('');
+          setLogo('');
+          setIsEditing('');
+          setLogo('')
         }).catch(({response})=>{
           if(response.status===422){
             setValidationError(response.data.errors)
@@ -224,10 +236,10 @@ export const Society = () => {
                                                             <img width="50px" src={`http://localhost:8000/storage/society/logo/${row.logo}`} alt="Society Logo" />
                                                         </td>
                                                         <td>
-                                                            <Button variant="success" onClick={() => editSociety(row)}>Edit</Button>
+                                                            <Button variant="success" onClick={() => editSociety(row)}><FontAwesomeIcon icon={faEdit}/></Button>
                                                             <span>&nbsp;</span>
                                                             <Button variant="danger" onClick={() => deleteSocieties(row.id)}>
-                                                                Delete
+                                                                <FontAwesomeIcon icon={faTrash}/>
                                                             </Button>
                                                         </td>
                                                     </tr>

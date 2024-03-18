@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Card, Table } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faBars, faMoneyBill, faCog, faEdit, faTasks,faSignOutAlt,faUserCircle, faTachometerAlt,faUsers,faBuilding,faUserFriends, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import Swal from 'sweetalert2';
 import './user.css'
@@ -256,7 +258,7 @@ export const User = () => {
         <Card className="bg-transparent user-card" style={{border:'none'}}>
           <Card.Body>
           <Card.Header style={{backgroundColor:'#50b64a', padding:'10px' ,textAlign:'center',color:"white",fontWeight:'bolder'}}>Liste des utilisateurs</Card.Header>
-            <table>
+            <table style={{width:'100%'}}>
               <thead>
                 <tr>
                   <th>Name</th>
@@ -272,9 +274,9 @@ export const User = () => {
                     <td>{user.email}</td>
                     <td>{user.role}</td>
                     <td className="col-md-2" style={{textAlign:'center',borderTop:'1px solid grey'}}>
-                      <button className="btn btn-success" onClick={() => handleEdit(user.id)}>Edit</button>
+                      <button className="btn btn-success" onClick={() => handleEdit(user.id)}><FontAwesomeIcon icon={faEdit}/></button>
                       <span>&nbsp;</span>
-                      <button className="btn btn-danger" onClick={() => deleteUser(user.id)}>Remove</button>
+                      <button className="btn btn-danger" onClick={() => deleteUser(user.id)}><FontAwesomeIcon icon={faTrash}/></button>
                     </td>                 
                   </tr>
                 ))}
