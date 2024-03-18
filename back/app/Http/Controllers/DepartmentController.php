@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use Carbon\Carbon;
 
-
 class DepartmentController extends Controller
 {
     public function index()

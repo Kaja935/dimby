@@ -17,6 +17,7 @@ export const User = () => {
     id_departments: "",
     id_societies: ""
   });
+  const [departments, setDepartments] = useState([]);
   const [users, setUsers] = useState([]);
   const [societies, setSocieties] = useState([]);
 
@@ -130,9 +131,7 @@ export const User = () => {
     if (isConfirmed.isConfirmed) {
       try {
         await axios.delete(`http://localhost:8000/api/users/${userId}`);
-        // Fetch updated list of users
         fetchUsers();
-        // Show success message
         Swal.fire({
           icon: 'success',
           title: 'User deleted successfully',
@@ -141,7 +140,6 @@ export const User = () => {
         });
       } catch (error) {
         console.error("Error deleting user:", error);
-        // Show error message
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -158,7 +156,18 @@ export const User = () => {
     setUserData(userToEdit);
   };
 
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
 
+  const fetchDepartments = async () => {
+      try {
+          const response = await axios.get('http://localhost:8000/api/departments');
+          setDepartments(response.data.departments);
+      } catch (error) {
+          console.error('Failed to fetch departments:', error);
+      }
+  };
 
   const handleCancel = () => {
     setIsEditing(null);
@@ -231,8 +240,13 @@ export const User = () => {
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="formBasicDepartmentId">
-                <Form.Label>Department ID</Form.Label>
-                <Form.Control type="text" placeholder="Department ID" name="id_departments" value={userData.id_departments} onChange={handleChange} required />
+                <Form.Label>Department</Form.Label>
+                <Form.Control as="select" name="id_departments" value={userData.id_departments} onChange={handleChange} required>
+                  <option value="">Select departement</option>
+                  {departments.map((department) => (
+                    <option key={department.id} value={department.id}>{department.description}</option>
+                  ))}
+                </Form.Control>
               </Form.Group>
               {isEditing ? (
               <>

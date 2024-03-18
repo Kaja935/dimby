@@ -8,6 +8,9 @@ import './society.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export const Society = () => {
 
@@ -253,6 +256,7 @@ export const Society = () => {
                     </Card>
                 </div>
             </Col>
+            <ToastContainer />
         </Row>
     )    
 }

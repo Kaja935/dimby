@@ -45,13 +45,13 @@ class UserController extends Controller
         } catch (\Exception $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                // Duplicate entry for unique column
+       
                 return response()->json(['message' => 'User with this email already exists'], 400);
             } elseif ($errorCode == 1452) {
-                // Foreign key constraint violation
+      
                 return response()->json(['message' => 'Invalid employee, society, or department ID'], 400);
             } else {
-                // Other database error
+   
                 return response()->json(['message' => 'Failed to create user. Error: ' . $e->getMessage()], 500);
             }
         }

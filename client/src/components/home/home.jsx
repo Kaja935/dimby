@@ -5,8 +5,8 @@ import { faBars, faSignOutAlt ,faUser, faBuilding, faMobileButton, faMoneyBill, 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Society } from "../society/society";
 import { User } from "../user/user";
-import CreateSociety from "../society/create.component";
-import EditSociety from "../society/edit.component";
+// import CreateSociety from "../society/create.component";
+// import EditSociety from "../society/edit.component";
 import "./home.css"
 import { Department } from "../department/Department";
 
@@ -45,7 +45,6 @@ export const Home = () => {
         </Navbar>
         <Container fluid className="mt-5" style={{ marginTop: "250px" }}>
           <Row>
-
               <Col
                 xs={2}
                 className="sidebar"
@@ -76,7 +75,6 @@ export const Home = () => {
                   </Button>
                 </div>
               </Col>
-
             <Col>
               <div className=" mt-5">{renderContent()}</div>
             </Col>
